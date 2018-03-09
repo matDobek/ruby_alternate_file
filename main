@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative "alternate_file_strategy"
+require_relative "alternate_file"
+
+orginal_file_path = ARGV[0].to_s
+strategy          = ARGV[1].to_s
+
+afs               = {
+                      "minitest" => AlternateFileStrategy::Minitest
+                    }.fetch(strategy)
+alternate_file    = AlternateFile.new(
+                      orginal_file_path: orginal_file_path,
+                      alternate_dir_mapping: afs.dir_mapping,
+                    )
+
+`mkdir -p #{alternate_file.directory}`
+`echo '#{afs.template}' > #{alternate_file.directory}/#{alternate_file.filename_with_ext}`
