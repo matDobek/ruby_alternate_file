@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# TODO : do not overwrite files when exist
+
 require_relative "alternate_file_strategy"
 require_relative "alternate_file"
 
